@@ -13,6 +13,6 @@ class Main
   //nexuiz in brazil https://razaoinfo.dl.sourceforge.net/project/nexuiz/NexuizRelease/Nexuiz%202.5.2/nexuiz-252.zip
   public static void main(String[]args) throws Exception{
     URL url = new URL("https://razaoinfo.dl.sourceforge.net/project/nexuiz/NexuizRelease/Nexuiz%202.5.2/nexuiz-252.zip");
-    downloadFile(url, "anus.zip");
+    downloadFile(url, "nexuiz.zip");
   }
 }
