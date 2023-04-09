@@ -2,41 +2,46 @@ import java.io.InputStream;
 import java.lang.StringBuilder;
 import java.net.URL;
 import java.nio.file.*;
+import java.util.Scanner;
 
 class Main
 {
-
-  public static void downloadFile(URL url, String filename) throws Exception
-  {
-    try (InputStream in = url.openStream()){
-      Files.copy(in, Paths.get(filename));
-    }
-  }
-
-  static String getFilenameReverse(String url){
-    String ret = "";
-    for(int i = url.length()-1; i>=0;i--){
-      if(url.charAt(i)!='/')
-        ret+=url.charAt(i);
-      else
-        break;
-    }
-    return ret;
-  }
-
+  String defaultDirectory;
   //nexuiz in brazil https://razaoinfo.dl.sourceforge.net/project/nexuiz/NexuizRelease/Nexuiz%202.5.2/nexuiz-252.zip
   public static void main(String[]args) throws Exception{
-    if(args.length != 1){
-      printUsage();
-      return;
+    int input=0;
+    Scanner s = new Scanner(System.in);
+    while(input!=3){
+      printOptions();
+      input = s.nextInt();
+      handleChoices(input);
     }
-    URL url = new URL(args[0]);
-    StringBuilder filename = new StringBuilder(
-      getFilenameReverse(args[0])).reverse();
-    downloadFile(url, filename.toString());
+  }
+  
+  static void handleChoices(int choice) throws Exception{
+    Scanner s = new Scanner(System.in);
+    switch(choice){
+      case 1:
+        Downloader download = new Downloader("",s.next());
+        download.downloadFile();
+        if(download.successful) System.out.println("Download Successful");
+        else                    System.out.println("Download failed");
+        break;
+      default:
+        break;
+    }
   }
 
-  static void printUsage(){
-    System.out.printf("Usage: program url\n");
+  static void printOptions(){
+    System.out.println("1. Download from url");
+    System.out.println("2. Print download history");
+    System.out.println("3. Exit");
   }
 }
+
+/*
+  Plans:
+    assign directory to file type(image,video,pdf)
+    checksum checker
+    automatic restart if fail
+*/
