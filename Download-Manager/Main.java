@@ -41,7 +41,11 @@ class Main {
     }
   }
 
-  static void appendCSV(String input);
+  static boolean appendCSV(String input) {
+    boolean ret = false;
+
+    return ret;
+  }
 
   static void printOptions() {
     System.out.println("1. Download from url");
