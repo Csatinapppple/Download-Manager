@@ -13,7 +13,7 @@ public class Downloader {
   public Downloader(String path, String url_source) throws Exception {
     this.path = path;
     source = new URL(url_source);
-    filename = getFilename(url_source);
+    filename = FileTools.getFilenameURL(url_source);
     time_started_downloading = new Date();
     successful = false;
   }
@@ -38,24 +38,12 @@ public class Downloader {
     }
   }
 
-  String getFilename(String url) {
-    String ret = "";
-    for (int i = url.length() - 1; i >= 0; i--) {
-      if (url.charAt(i) == '/') {
-        for (int j = i + 1; url.length() > j; j++) {
-          ret += url.charAt(j);
-        }
-        break;
-      }
-    }
-    return ret;
-  }
-
   public String toString() {
-    return path + ';'
+    String string_path = (path == "") ? "default" : path;
+    return string_path + ';'
         + filename + ';'
         + source.toString() + ';'
         + time_started_downloading.toString() + ';'
-        + successful;
+        + successful+'\n';
   }
 }

@@ -2,6 +2,16 @@ import java.io.*;
 
 class FileTools {
 
+  static String getFilenameURL(String url) {
+    String ret = "";
+    for (int i = url.length() - 1; i >= 0; i--) {
+      if (url.charAt(i) == '/') {
+        return url.substring(i+1);
+      }
+    }
+    return ret;
+  }
+
 	static boolean createFile(String filename) {
 		boolean ret = false;
 		try {
@@ -22,9 +32,12 @@ class FileTools {
 	static boolean appendFile(String input, String filename) {
 		boolean ret = false;
 		try {
-			FileWriter fw = new FileWriter(filename);
+			FileWriter fw = new FileWriter(filename,true);
+			fw.write(input);
+			fw.close();
+			ret = true;
 		} catch (IOException e) {
-
+			System.out.println("IOEXCEPTION: ");
 			e.printStackTrace();
 		}
 		return ret;

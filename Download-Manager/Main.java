@@ -12,7 +12,7 @@ class Main {
   public static void main(String[] args) throws Exception {
 
     if (FileTools.createFile("history.csv"))
-      ;
+      createCSV();
 
     if (args.length == 1)
       staticDownload(args[0]);
@@ -32,19 +32,13 @@ class Main {
       case 1:
         Downloader download = new Downloader("", s.next());
         download.downloadFile();
-        appendCSV(download.toString());
+        FileTools.appendFile(download.toString(),"history.csv");
         break;
       case 2:
         break;
       default:
         break;
     }
-  }
-
-  static boolean appendCSV(String input) {
-    boolean ret = false;
-
-    return ret;
   }
 
   static void printOptions() {
@@ -56,7 +50,14 @@ class Main {
   static void staticDownload(String url) throws Exception {
     Downloader d = new Downloader("", url);
     d.downloadFile();
+    FileTools.appendFile(d.toString(), "history.csv");    
     System.exit(0);
+  }
+
+
+  static void createCSV(){
+    String header = "path;filename;source;time_started_downloading;successful;\n";
+    FileTools.appendFile(header, "history.csv");
   }
 }
 
