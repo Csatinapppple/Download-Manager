@@ -12,7 +12,7 @@ class Main {
   public static void main(String[] args) throws Exception {
 
     if (FileTools.createFile("history.csv"))
-      createCSV();
+      appendHeaderCSV();
 
     if (args.length == 1)
       staticDownload(args[0]);
@@ -55,7 +55,7 @@ class Main {
   }
 
 
-  static void createCSV(){
+  static void appendHeaderCSV(){
     String header = "path;filename;source;time_started_downloading;successful;\n";
     FileTools.appendFile(header, "history.csv");
   }
