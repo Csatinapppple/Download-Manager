@@ -1,4 +1,5 @@
 import java.util.Date;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
 import java.net.URL;
@@ -10,7 +11,7 @@ public class Downloader {
   Date time_started_downloading;
   boolean successful;
 
-  public Downloader(String path, String url_source) throws Exception {
+  public Downloader(String path, String url_source) throws IOException {
     this.path = path;
     source = new URL(url_source);
     filename = FileTools.getFilenameURL(url_source);
@@ -18,7 +19,7 @@ public class Downloader {
     successful = false;
   }
 
-  public Downloader(String path, String url_source, String customFilename) throws Exception {
+  public Downloader(String path, String url_source, String customFilename) throws IOException {
     this.path = path;
     source = new URL(url_source);
     filename = customFilename;
@@ -26,10 +27,10 @@ public class Downloader {
     successful = false;
   }
 
-  void downloadFile() throws Exception {
+  void downloadFile() throws IOException {
     try (InputStream in = source.openStream()) {
       Files.copy(in, Paths.get(path, filename));
-    } catch (Exception e) {
+    }catch (IOException e){
       System.out.println("download failed");
       e.printStackTrace();
     } finally {

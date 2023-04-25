@@ -9,10 +9,10 @@ class Main {
 
   // nexuiz in brazil
   // https://razaoinfo.dl.sourceforge.net/project/nexuiz/NexuizRelease/Nexuiz%202.5.2/nexuiz-252.zip
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) throws IOException {
 
     if (FileTools.createFile("history.csv"))
-      appendHeaderCSV();
+      createCSV();
 
     if (args.length == 1)
       staticDownload(args[0]);
@@ -26,7 +26,7 @@ class Main {
     }
   }
 
-  static void handleChoices(int choice) throws Exception {
+  static void handleChoices(int choice) throws IOException {
     Scanner s = new Scanner(System.in);
     switch (choice) {
       case 1:
@@ -47,7 +47,7 @@ class Main {
     System.out.println("3. Exit");
   }
 
-  static void staticDownload(String url) throws Exception {
+  static void staticDownload(String url) throws IOException {
     Downloader d = new Downloader("", url);
     d.downloadFile();
     FileTools.appendFile(d.toString(), "history.csv");    
@@ -55,7 +55,7 @@ class Main {
   }
 
 
-  static void appendHeaderCSV(){
+  static void createCSV(){
     String header = "path;filename;source;time_started_downloading;successful;\n";
     FileTools.appendFile(header, "history.csv");
   }
