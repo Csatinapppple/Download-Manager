@@ -1,14 +1,43 @@
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CSVParser {
-  File csvFile;
+class CSVParser {
   char separator;
-  String header;
+  List<List<String>> csv_file;
+  static int HEADER = 0;
 
-  CSVParser(File csvFile, char separator){
-    this.csvFile = csvFile;
+  CSVParser(String raw_file, char separator){
+    csv_file = parseCSV(raw_file);
     this.separator = separator;
   }
 
+  List<List<String>> parseCSV(String raw_file){
+    List<List<String>> ret = new ArrayList<List<String>>();
+    List<String> line = new ArrayList<String>();
+    String part="";
 
+    for(int x = 0;x<raw_file.length();x++){
+      if(raw_file.charAt(x)==separator){
+        line.add(part);
+        part="";
+      }else if(raw_file.charAt(x)=='\n'){
+        line.add(part);
+        part="";
+        ret.add(line);
+        line.clear();
+      }else{
+        part+=raw_file.charAt(x);  
+      }
+    }
+
+    return ret;
+  }
+
+  void printCSV(int start, int end){
+    /*
+      Pick when to start printing, for example, at the last ten recent
+      CSV lines ex: printCSV(csv_file.length()-10,csv_file.length())
+     */
+
+  }
 }

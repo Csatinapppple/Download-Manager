@@ -15,13 +15,13 @@ class FileTools {
 	static boolean createFile(String filename) {
 		boolean ret = false;
 		try {
-			File newFile = new File(filename);
-			if (newFile.createNewFile()) {
-				System.out.println("File created: " + newFile.getName());
+			File new_file = new File(filename);
+			if (new_file.createNewFile()) {
+				System.out.println("File created: " + new_file.getName());
 				ret = true;
 			} else
 				System.out.println("File already exists.");
-
+				
 		} catch (IOException e) {
 			System.out.println("An error ocurred.");
 			e.printStackTrace();
