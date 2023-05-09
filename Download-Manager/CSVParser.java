@@ -33,8 +33,12 @@ class CSVParser {
     return ret;
   }
 
-  void printCSV(int start, int end){
+
+
+  void printCSV(int[] headers,int start, int end){
+    
     /*
+      int[0<n<=header.length] Define the order and what headers to print
       Pick when to start printing, for example, at the last ten recent
       CSV lines ex: printCSV(csv_file.length()-10,csv_file.length())
      */
