@@ -4,7 +4,9 @@ import java.util.List;
 class CSVParser {
   char separator;
   List<List<String>> csv_file;
-  static int HEADER = 0;
+  static final int HEADER = 0;
+
+  
 
   CSVParser(String raw_file, char separator){
     csv_file = parseCSV(raw_file);
@@ -35,11 +37,15 @@ class CSVParser {
 
 
 
-  void printCSV(int[] headers,int start, int end){
+  void printCSV(int[] headers,int start){
     
+    for(int i = 0; headers.length > i;i++){
+      
+    }
+
     /*
       int[0<n<=header.length] Define the order and what headers to print
-      Pick when to start printing, for example, at the last ten recent
+      Pick when to start printing until the end, for example, at the last ten recent
       CSV lines ex: printCSV(csv_file.length()-10,csv_file.length())
      */
 

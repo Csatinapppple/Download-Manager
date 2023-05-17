@@ -4,23 +4,38 @@ import java.net.URL;
 import java.nio.file.*;
 import java.util.Scanner;
 
-class Main {
-  static String default_directory = System.getProperty("user.home"+"/Downloads");
+class Main {  
+  static String default_directory = System.getProperty("user.home") + "/Downloads";
+
+  //CSV Header enu
+  static final int PATH = 0;
+  static final int FILENAME = 1;
+  static final int SOURCE = 2;
+  static final int TIME_STARTED_DOWNLOADING = 3; 
+  static final int SUCCESSFULL = 4;
 
   // nexuiz in brazil
   // https://razaoinfo.dl.sourceforge.net/project/nexuiz/NexuizRelease/Nexuiz%202.5.2/nexuiz-252.zip
   public static void main(String[] args) throws IOException {
-    
-    if (FileTools.createFile("history.csv"))
-      createCSV();
 
-    if (args.length == 1)
-      staticDownload(args[0]);
-		else
+    if (FileTools.createFile("history.csv")){
+      createCSV();
+    }
+
+    if (args.length == 0){
 			printUsage();
+    }else if(args[1]=="-p"){
+
+      CSVParser csv_parser = new CSVParser(FileTools.getFileContents("history.csv"), ';');
+      int[] headers = {PATH,FILENAME,TIME_STARTED_DOWNLOADING};
+      csv_parser.printCSV(headers, 10);
+    
+    }else{
+      staticDownload(args[args.length - 1]);
+    }
   }
 
-	static final void printUsage();{
+	static final void printUsage(){
 		System.out.println("usage: java Main -DOWNLOADURL");
 	}
 
@@ -32,12 +47,12 @@ class Main {
    */
 
   static void staticDownload(String url) throws IOException {
-    Downloader d = new Downloader("", url);
+    Downloader d = new Downloader(default_directory, url);
     d.downloadFile();
-    FileTools.appendFile(d.toString(), "history.csv");    
-    System.exit(0);
+    FileTools.appendFile(d.toString()+'\n', "history.csv");
   }
 
+  
 
   static void createCSV(){
     String header = "path;filename;source;time_started_downloading;successful;\n";
